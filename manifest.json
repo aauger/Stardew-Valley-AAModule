@@ -1,0 +1,9 @@
+{
+   "Name": "AAModule",
+   "Author": "Austin Auger",
+   "Version": "1.0",
+   "Description": "Module Based Plugin stuff",
+   "UniqueID": "AustinAuger.AAModule",
+   "EntryDll": "AAModule.dll",
+   "UpdateKeys": []
+}
