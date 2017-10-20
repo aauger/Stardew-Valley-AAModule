@@ -13,8 +13,10 @@ namespace AAModule.Modules.InfoModules
         Dictionary<int, string> fishNames = new Dictionary<int, string>()
         {
             {-1 , "Nothing" },
+            {705, "Albacore" },
             {129, "Anchovy" },
             {132, "Bream" },
+            {700, "Bullhead" },
             {142, "Carp"},
             {143, "Catfish"},
             {702, "Chub"},
