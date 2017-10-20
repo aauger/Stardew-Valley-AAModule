@@ -19,6 +19,8 @@ namespace AAModule
         List<IActiveEffectModule> activeEffectModules;
         List<ICommandModule> commandModules;
         List<IKeypressEffectModule> keypressEffectModules;
+        const int TEXT_OFFSET = 40;
+
         /*********
         ** Public methods
         *********/
@@ -88,17 +90,22 @@ namespace AAModule
             {
                 if (iim.ShouldBeShowing())
                 {
-                    Game1.spriteBatch.DrawString(Game1.dialogueFont,
-                        iim.GetShowText(),
-                        new Vector2(52, 52 + offset),
-                        Color.Black);
-                    Game1.spriteBatch.DrawString(Game1.dialogueFont,
-                        iim.GetShowText(),
-                        new Vector2(50, 50 + offset),
-                        Color.HotPink);
-                    offset += 40;
+                    DrawString(iim.GetShowText(), offset);
+                    offset++;
                 }
             }
+        }
+
+        private void DrawString(string str, int offsetLevel)
+        {
+            Game1.spriteBatch.DrawString(Game1.dialogueFont,
+                str,
+                new Vector2(52, 52 + offsetLevel * TEXT_OFFSET),
+                Color.Black);
+            Game1.spriteBatch.DrawString(Game1.dialogueFont,
+                str,
+                new Vector2(50, 50 + offsetLevel * TEXT_OFFSET),
+                Color.HotPink);
         }
 
         /*********
