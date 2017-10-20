@@ -10,11 +10,11 @@ namespace AAModule.Modules.ActiveEffectModules
 {
     class AutoBucket : IActiveEffectModule
     {
-        bool isActivated = true;
+        bool isActive = true;
 
         public void Activate()
         {
-            isActivated = true;
+            isActive = true;
         }
 
         public string ActivationCommand()
@@ -24,7 +24,7 @@ namespace AAModule.Modules.ActiveEffectModules
 
         public void Deactivate()
         {
-            isActivated = false;
+            isActive = false;
         }
 
         public string DeactivationCommand()
@@ -34,7 +34,7 @@ namespace AAModule.Modules.ActiveEffectModules
 
         public bool IsActivated()
         {
-            return isActivated;
+            return isActive;
         }
 
         public void PerformAction()
