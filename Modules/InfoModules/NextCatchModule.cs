@@ -14,6 +14,7 @@ namespace AAModule.Modules.InfoModules
         {
             {-1 , "Nothing" },
             {129, "Anchovy" },
+            {132, "Bream" },
             {142, "Carp"},
             {143, "Catfish"},
             {702, "Chub"},

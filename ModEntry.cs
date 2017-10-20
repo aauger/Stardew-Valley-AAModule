@@ -52,7 +52,7 @@ namespace AAModule
             });
 
             commandModules.AddRange(new ICommandModule[] {
-
+                new FixLighting()
             });
 
             foreach (IActiveEffectModule aem in activeEffectModules)
