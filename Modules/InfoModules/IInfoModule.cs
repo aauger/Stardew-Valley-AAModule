@@ -8,7 +8,7 @@ namespace AAModule.Modules.InfoModules
 {
     interface IInfoModule
     {
-        bool ShouldBeShowing();
-        string GetShowText();
+        bool ShouldDisplayInfoString();
+        string GetInfoString();
     }
 }

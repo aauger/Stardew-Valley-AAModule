@@ -74,9 +74,9 @@ namespace AAModule.Modules.InfoModules
             {734, "Woodskip"}
         };
 
-        public string GetShowText()
+        public string GetInfoString()
         {
-            StardewValley.Menus.BobberBar bb = 
+            StardewValley.Menus.BobberBar bb =
                 Game1.activeClickableMenu as StardewValley.Menus.BobberBar;
             BindingFlags bf = BindingFlags.NonPublic | BindingFlags.Instance;
             FieldInfo field = typeof(StardewValley.Menus.BobberBar).GetField("whichFish", bf);
@@ -88,7 +88,7 @@ namespace AAModule.Modules.InfoModules
                 return "On hook: " + fishKey;
         }
 
-        public bool ShouldBeShowing()
+        public bool ShouldDisplayInfoString()
         {
             return ((Game1.activeClickableMenu as StardewValley.Menus.BobberBar) != null);
         }

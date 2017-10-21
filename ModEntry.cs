@@ -9,6 +9,8 @@ using AAModule.Modules.InfoModules;
 using AAModule.Modules.KeypressEffectModules;
 using AAModule.Modules.ActiveEffectModules;
 using AAModule.Modules.CommandModules;
+using Microsoft.Xna.Framework.Graphics;
+using AAModule.Modules.HudModules;
 
 namespace AAModule
 {
@@ -19,6 +21,7 @@ namespace AAModule
         List<IActiveEffectModule> activeEffectModules;
         List<ICommandModule> commandModules;
         List<IKeypressEffectModule> keypressEffectModules;
+        List<IHudModule> hudModules;
         const int TEXT_OFFSET = 40;
 
         /*********
@@ -32,6 +35,7 @@ namespace AAModule
             activeEffectModules = new List<IActiveEffectModule>();
             commandModules = new List<ICommandModule>();
             keypressEffectModules = new List<IKeypressEffectModule>();
+            hudModules = new List<IHudModule>();
 
             activeEffectModules.AddRange(new IActiveEffectModule[] {
                 new SonicActiveEffect(),
@@ -39,9 +43,7 @@ namespace AAModule
             });
 
             infoModules.AddRange(new IInfoModule[] {
-                new NextCatchModule(),
-                //new TestInfoModule()
-
+                new NextCatchModule()
             });
 
             keypressEffectModules.AddRange(new IKeypressEffectModule[] {
@@ -53,6 +55,10 @@ namespace AAModule
 
             commandModules.AddRange(new ICommandModule[] {
                 new FixLighting()
+            });
+
+            hudModules.AddRange(new IHudModule[] {
+                //nothing yet!
             });
 
             foreach (IActiveEffectModule aem in activeEffectModules)
@@ -88,10 +94,18 @@ namespace AAModule
             int offset = 0;
             foreach (IInfoModule iim in infoModules)
             {
-                if (iim.ShouldBeShowing())
+                if (iim.ShouldDisplayInfoString() && !String.IsNullOrEmpty(iim.GetInfoString()))
                 {
-                    DrawString(iim.GetShowText(), offset);
+                    DrawString(iim.GetInfoString(), offset);
                     offset++;
+                }
+            }
+
+            foreach (IHudModule ihm in hudModules)
+            {
+                if (ihm.ShouldDrawOnHud())
+                {
+                    ihm.DrawOnHud();
                 }
             }
         }
