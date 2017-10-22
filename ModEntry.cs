@@ -43,7 +43,8 @@ namespace AAModule
             });
 
             infoModules.AddRange(new IInfoModule[] {
-                new NextCatchModule()
+                new NextCatchModule(),
+                new BlockInfoModule()
             });
 
             keypressEffectModules.AddRange(new IKeypressEffectModule[] {
