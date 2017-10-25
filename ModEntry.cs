@@ -22,7 +22,6 @@ namespace AAModule
         List<ICommandModule> commandModules;
         List<IKeypressEffectModule> keypressEffectModules;
         List<IHudModule> hudModules;
-        const int TEXT_OFFSET = 40;
 
         /*********
         ** Public methods
@@ -44,7 +43,7 @@ namespace AAModule
 
             infoModules.AddRange(new IInfoModule[] {
                 new NextCatchModule(),
-                new BlockInfoModule()
+                new BlockInfoModule(),
             });
 
             keypressEffectModules.AddRange(new IKeypressEffectModule[] {
@@ -59,7 +58,6 @@ namespace AAModule
             });
 
             hudModules.AddRange(new IHudModule[] {
-                //nothing yet!
             });
 
             foreach (IActiveEffectModule aem in activeEffectModules)
@@ -97,8 +95,8 @@ namespace AAModule
             {
                 if (iim.ShouldDisplayInfoString() && !String.IsNullOrEmpty(iim.GetInfoString()))
                 {
-                    DrawString(iim.GetInfoString(), offset);
-                    offset++;
+                    int height = DrawHoverTextBox(Game1.smallFont, iim.GetInfoString(), 50, 50 + offset);
+                    offset += height + 5;
                 }
             }
 
@@ -111,24 +109,13 @@ namespace AAModule
             }
         }
 
-        private void DrawString(string str, int offsetLevel)
-        {
-            Game1.spriteBatch.DrawString(Game1.dialogueFont,
-                str,
-                new Vector2(52, 52 + offsetLevel * TEXT_OFFSET),
-                Color.Black);
-            Game1.spriteBatch.DrawString(Game1.dialogueFont,
-                str,
-                new Vector2(50, 50 + offsetLevel * TEXT_OFFSET),
-                Color.HotPink);
-        }
-
         /*********
         ** Private methods
         *********/
         /// <summary>The method invoked when the player presses a keyboard button.</summary>
         /// <param name="sender">The event sender.</param>
         /// <param name="e">The event data.</param>
+        /// 
         private void ControlEvents_KeyPress(object sender, EventArgsKeyPressed e)
         {
             if (Context.IsWorldReady) // save is loaded
@@ -141,6 +128,36 @@ namespace AAModule
                     }
                 }
             }
+        }
+
+        private int DrawHoverTextBox(SpriteFont font, string description, int x, int y)
+        {
+            Vector2 stringLength = font.MeasureString(description);
+            int width = (int)stringLength.X + Game1.tileSize / 2 + 40;
+            int height = (int)stringLength.Y + Game1.tileSize / 3 + 5;
+
+            if (x < 0)
+                x = 0;
+
+            if (y + height > Game1.graphics.GraphicsDevice.Viewport.Height)
+                y = Game1.graphics.GraphicsDevice.Viewport.Height - height;
+
+            StardewValley.Menus.IClickableMenu
+                .drawTextureBox(Game1.spriteBatch, 
+                Game1.menuTexture, 
+                new Rectangle(0, 256, 60, 60), 
+                x, y, 
+                width, height, 
+                Color.White,
+                1,
+                false);
+            Utility.drawTextWithShadow(Game1.spriteBatch, 
+                description, 
+                font, 
+                new Vector2(x + Game1.tileSize / 4, y + Game1.tileSize / 4), 
+                Game1.textColor);
+
+            return height;
         }
     }
 }
